@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Pulse — Fechamento do dia</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#6B4EFF}a:hover{color:#5638E8}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="position: relative; overflow: hidden; width: 390px; min-height: 860px; box-sizing: border-box; padding: 24px 20px 20px; background: {{bg}}; font-family: 'Bricolage Grotesque', sans-serif; color: {{ink}}; display: flex; flex-direction: column; align-items: center; gap: 12px">
+
+<svg width="390" height="860" viewBox="0 0 390 860" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<sc-for list="{{rays}}" as="r" hint-placeholder-count="12">
+<rect x="171" y="-320" width="48" height="320" rx="24" fill="#FFFFFF" fill-opacity="0.18" transform="{{r.t}}"></rect>
+</sc-for>
+</svg>
+
+<div style="position: relative; align-self: stretch; display: flex; justify-content: space-between; align-items: center">
+<span style="font-size: 13px; font-weight: 500; color: {{soft}}">Terça, 24 de novembro</span>
+<button aria-label="Fechar" style="width: 40px; height: 40px; border-radius: 999px; border: none; background: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; padding: 0">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D1640" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+</div>
+
+<div style="position: relative; display: flex; flex-direction: column; align-items: center; margin-top: 8px">
+<div style="background: #FFFFFF; color: #1D1640; border-radius: 20px; padding: 14px 18px; font-size: 16px; line-height: 22px; font-weight: 600; text-align: center; max-width: 300px">{{msg}}</div>
+<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true" style="margin-top: -1px"><path d="M0 0H22L11 12Z" fill="#FFFFFF"></path></svg>
+</div>
+
+<div style="position: relative; width: 236px; height: 236px; border-radius: 76px; background: rgba(255,255,255,0.85); display: flex; align-items: center; justify-content: center">
+<dc-import name="Pulse" expressao="{{expressao}}" size="224" hint-size="224px,210px"></dc-import>
+</div>
+
+<div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 4px">
+<span style="font-size: 88px; line-height: 1; font-weight: 700; font-variant-numeric: tabular-nums">{{score}}</span>
+<span style="font-size: 16px; font-weight: 600; color: {{soft}}">nota do dia · {{faixa}}</span>
+</div>
+
+<div style="position: relative; align-self: stretch; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 8px">
+<div style="background: #FFFFFF; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 2px; color: #1D1640">
+<span style="font-size: 20px; font-weight: 700">{{feitas}}</span>
+<span style="font-size: 12px; color: #645A93">tarefas feitas</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 2px; color: #1D1640">
+<span style="font-size: 20px; font-weight: 700">6,8</span>
+<span style="font-size: 12px; color: #645A93">média da semana</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 2px; color: #1D1640">
+<span style="font-size: 20px; font-weight: 700">{{seq}}</span>
+<span style="font-size: 12px; color: #645A93">{{seqLabel}}</span>
+</div>
+</div>
+
+<button style="position: relative; margin-top: auto; align-self: stretch; height: 56px; border: none; border-radius: 16px; background: {{btnBg}}; color: {{btnFg}}; font-size: 17px; font-weight: 700">Continuar</button>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"expressao":{"editor":"enum","options":["baixa","media","alta","perfeita"],"default":"alta"},"$preview":{"width":390,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const T = {
+      baixa: { bg: '#DEDAEA', ink: '#1D1640', soft: '#4F4775', score: '3,2', faixa: 'baixa', feitas: '2 de 5', seq: '0', seqLabel: 'recomeça amanhã', msg: 'Amanhã é outro dia. Descansa que a gente recomeça junto.', btnBg: '#1D1640', btnFg: '#FFFFFF' },
+      media: { bg: '#CFC4FF', ink: '#1D1640', soft: '#433A78', score: '6,0', faixa: 'média', feitas: '3 de 5', seq: '12', seqLabel: 'dias seguidos', msg: 'Bom ritmo! Mais um dia na conta.', btnBg: '#1D1640', btnFg: '#FFFFFF' },
+      alta: { bg: '#B8F24A', ink: '#1D1640', soft: '#3A4A12', score: '8,5', faixa: 'alta', feitas: '4 de 5', seq: '12', seqLabel: 'dias seguidos', msg: 'Dia forte! Você mandou muito bem hoje.', btnBg: '#1D1640', btnFg: '#FFFFFF' },
+      perfeita: { bg: '#6B4EFF', ink: '#FFFFFF', soft: '#FFFFFF', score: '10', faixa: 'perfeita', feitas: '5 de 5', seq: '12', seqLabel: 'dias seguidos', msg: 'Dia perfeito! Não sobrou nada na lista.', btnBg: '#FFFFFF', btnFg: '#1D1640' }
+    };
+    const expressao = this.props.expressao ?? 'alta';
+    const t = T[expressao] || T.alta;
+    const rays = Array.from({ length: 12 }, (_, i) => ({ t: `translate(0 330) rotate(${i * 30} 195 0)` }));
+    return { ...t, expressao, rays };
+  }
+}
+</script>
+</body>
+</html>

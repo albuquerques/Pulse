@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Pulse — Hoje</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#6B4EFF}a:hover{color:#5638E8}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; min-height: 860px; box-sizing: border-box; padding: 24px 20px 16px; background: #F3F0FF; font-family: 'Bricolage Grotesque', sans-serif; color: #1D1640; display: flex; flex-direction: column; gap: 16px">
+
+<div style="display: flex; justify-content: space-between; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; color: #645A93">Terça, 24 de novembro</span>
+<h1 style="margin: 0; font-size: 26px; line-height: 32px; font-weight: 700">Boa tarde, Ricardo</h1>
+</div>
+<span style="display: inline-flex; align-items: center; gap: 4px; background: #B8F24A; color: #1D1640; font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 999px; margin-top: 4px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D1640" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c1 3 4 5 4 9a4 4 0 0 1-8 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 0-8z"></path></svg>
+12 dias</span>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+<span style="font-size: 12px; color: #645A93">{{d.l}}</span>
+<span style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; box-sizing: border-box; background: {{d.bg}}; color: {{d.fg}}; border: {{d.border}}">{{d.n}}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="background: #FFFFFF; border-radius: 24px; padding: 16px; display: flex; gap: 16px; align-items: center">
+<div style="position: relative; width: 120px; height: 120px; flex-shrink: 0">
+<svg width="120" height="120" viewBox="0 0 120 120" style="position: absolute; left: 0; top: 0" aria-hidden="true">
+<circle cx="60" cy="60" r="53" fill="none" stroke="#E2DCFF" stroke-width="10"></circle>
+<circle cx="60" cy="60" r="53" fill="none" stroke="#6B4EFF" stroke-width="10" stroke-linecap="round" pathLength="100" stroke-dasharray="78 100" transform="rotate(-90 60 60)"></circle>
+</svg>
+<div style="position: absolute; left: 12px; top: 14px">
+<dc-import name="Pulse" expressao="alta" size="96" hint-size="96px,90px"></dc-import>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-size: 13px; color: #645A93">Nota de hoje</span>
+<span style="font-size: 44px; line-height: 1; font-weight: 700; font-variant-numeric: tabular-nums">7,8</span>
+<span style="font-size: 14px; font-weight: 600">Dia forte · 3 de 5</span>
+<button style="align-self: flex-start; margin-top: 4px; height: 36px; padding: 0 14px; border: none; border-radius: 12px; background: #E2DCFF; color: #1D1640; font-size: 14px; font-weight: 600">Fechar o dia</button>
+</div>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-size: 20px; font-weight: 700">Tarefas de hoje</h2>
+<span style="font-size: 13px; color: #645A93">2 restantes</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{tasks}}" as="t" hint-placeholder-count="5">
+<div style="background: #FFFFFF; border-radius: 16px; padding: 10px 14px; display: flex; align-items: center; gap: 12px; min-height: 52px; box-sizing: border-box">
+<sc-if value="{{t.done}}" hint-placeholder-val="{{ false }}">
+<button aria-label="Desmarcar tarefa" style="width: 28px; height: 28px; flex-shrink: 0; border-radius: 999px; border: none; background: #6B4EFF; display: flex; align-items: center; justify-content: center; padding: 0">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+</button>
+</sc-if>
+<sc-if value="{{t.pending}}" hint-placeholder-val="{{ true }}">
+<button aria-label="Concluir tarefa" style="width: 28px; height: 28px; flex-shrink: 0; border-radius: 999px; border: 2.5px solid #C9C1F2; background: #FFFFFF; padding: 0"></button>
+</sc-if>
+<div style="display: flex; flex-direction: column; min-width: 0">
+<span style="font-size: 16px; line-height: 22px; color: {{t.color}}; text-decoration: {{t.deco}}">{{t.name}}</span>
+<span style="font-size: 12px; line-height: 16px; color: #645A93">{{t.meta}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+
+<nav style="margin-top: auto; background: #1D1640; border-radius: 999px; padding: 8px; display: flex; justify-content: space-between; align-items: center">
+<a href="#" aria-label="Hoje" style="width: 48px; height: 48px; border-radius: 999px; background: #B8F24A; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1D1640" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg></a>
+<a href="#" aria-label="Histórico" style="width: 48px; height: 48px; border-radius: 999px; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#CFC4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg></a>
+<a href="#" aria-label="Nova tarefa" style="width: 56px; height: 48px; border-radius: 999px; background: #6B4EFF; display: flex; align-items: center; justify-content: center">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></a>
+<a href="#" aria-label="Tarefas" style="width: 48px; height: 48px; border-radius: 999px; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#CFC4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"></path></svg></a>
+<a href="#" aria-label="Perfil" style="width: 48px; height: 48px; border-radius: 999px; display: flex; align-items: center; justify-content: center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#CFC4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg></a>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tier = {
+      baixa: { bg: '#DEDAEA', fg: '#1D1640' },
+      media: { bg: '#CFC4FF', fg: '#1D1640' },
+      alta: { bg: '#B8F24A', fg: '#1D1640' },
+      perfeita: { bg: '#6B4EFF', fg: '#FFFFFF' }
+    };
+    const past = [['Q', 18, 'alta'], ['Q', 19, 'media'], ['S', 20, 'perfeita'], ['S', 21, 'baixa'], ['D', 22, 'alta'], ['S', 23, 'media']];
+    const days = past.map(([l, n, t]) => ({ l, n, bg: tier[t].bg, fg: tier[t].fg, border: 'none' }));
+    days.push({ l: 'T', n: 24, bg: '#FFFFFF', fg: '#1D1640', border: '2.5px solid #6B4EFF' });
+    const raw = [
+      ['Treino', 'Todo dia · peso 3', true],
+      ['Leitura 30 min', 'Todo dia · peso 2', true],
+      ['Estudar inglês', 'Seg, ter e qui · peso 2', true],
+      ['Meditar 10 min', 'Todo dia · peso 1', false],
+      ['Arrumar o quarto', 'Às terças · peso 1', false]
+    ];
+    const tasks = raw.map(([name, meta, done]) => ({ name, meta, done, pending: !done, color: done ? '#645A93' : '#1D1640', deco: done ? 'line-through' : 'none' }));
+    return { days, tasks };
+  }
+}
+</script>
+</body>
+</html>
