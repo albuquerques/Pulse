@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pulse · protótipo de sincronização</title>
+    <style>
+      :root { font-family: system-ui, sans-serif; line-height: 1.5; }
+      body { margin: 0; padding: 24px; max-width: 32rem; }
+      h1 { font-size: 1.1rem; margin: 0 0 4px; }
+      .hint { color: #555; font-size: 0.85rem; margin: 0 0 20px; }
+      .score { font-size: 3rem; font-weight: 700; margin: 0; }
+      ul { list-style: none; padding: 0; margin: 20px 0; }
+      li { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #e5e5e5; }
+      li .name { flex: 1; }
+      button { font: inherit; padding: 6px 12px; cursor: pointer; }
+      dl { display: grid; grid-template-columns: auto auto; gap: 4px 16px; margin: 0; font-size: 0.9rem; }
+      dt { color: #555; }
+      dd { margin: 0; font-variant-numeric: tabular-nums; }
+    </style>
+  </head>
+  <body>
+    <h1>Pulse · protótipo de sincronização</h1>
+    <p class="hint">Código descartável do T0. Sem login, sem visual.</p>
+
+    <p class="score" data-testid="score">—</p>
+    <ul data-testid="tasks"></ul>
+
+    <dl>
+      <dt>Eventos no log</dt><dd data-testid="event-count">0</dd>
+      <dt>Fila de envio</dt><dd data-testid="outbox-size">0</dd>
+      <dt>Último server_seq</dt><dd data-testid="last-seq">0</dd>
+      <dt>Sincronização</dt><dd data-testid="sync-state">—</dd>
+      <dt>Aparelho</dt><dd data-testid="device-id">—</dd>
+    </dl>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

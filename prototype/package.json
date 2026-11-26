@@ -1,0 +1,21 @@
+{
+  "name": "@proto/root",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down -v",
+    "dev": "pnpm --parallel --filter \"@proto/*\" dev",
+    "test:unit": "pnpm --filter @proto/web test:unit",
+    "test:e2e": "playwright test",
+    "test": "pnpm test:unit && pnpm test:e2e",
+    "typecheck": "tsc --noEmit && pnpm --filter \"@proto/*\" typecheck"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@types/node": "26.6.10",
+    "@types/pg": "8.23.1",
+    "pg": "8.23.1",
+    "typescript": "5.9.3"
+  }
+}

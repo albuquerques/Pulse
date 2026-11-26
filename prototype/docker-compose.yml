@@ -1,0 +1,16 @@
+# Throwaway Postgres for the T0 prototype. Data is not meant to survive.
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: pulse-proto-db
+    environment:
+      POSTGRES_USER: pulse
+      POSTGRES_PASSWORD: pulse
+      POSTGRES_DB: pulse_proto
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pulse -d pulse_proto"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
