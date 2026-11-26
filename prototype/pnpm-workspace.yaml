@@ -1,0 +1,6 @@
+packages:
+  - server
+  - web
+minimumReleaseAgeExclude:
+  - '@types/node@26.6.10'
+  - hono@4.13.22
