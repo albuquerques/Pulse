@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - packages/*
+  - e2e
+
+# prototype/ is deliberately absent: it is frozen T0 code with its own workspace,
+# and it stays out of lint, typecheck and CI.
+
+# 14 days, in minutes. Nothing published more recently than that gets installed —
+# the ticket's rule, enforced by the installer instead of by discipline.
+minimumReleaseAge: 20160

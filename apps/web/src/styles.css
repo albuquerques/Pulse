@@ -1,0 +1,3 @@
+/* T1 pulls in Tailwind and nothing else. The Pulse design tokens from
+   docs/design-system/tokens.json are wired up in T7a. */
+@import "tailwindcss";

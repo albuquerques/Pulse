@@ -1,0 +1,25 @@
+# Postgres for development. T1 only reserves DATABASE_URL — the API does not
+# connect yet; the real schema and migrations arrive in T4.
+# Port 5434 so this can run alongside the frozen T0 prototype on 5433.
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: pulse-db
+    environment:
+      POSTGRES_USER: pulse
+      POSTGRES_PASSWORD: pulse
+      POSTGRES_DB: pulse
+    ports:
+      - "5434:5432"
+    volumes:
+      # Postgres 18 wants a single mount at /var/lib/postgresql, not at its
+      # data subdirectory, so pg_upgrade --link can work later.
+      - pulse-db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pulse -d pulse"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pulse-db-data:
