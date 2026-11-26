@@ -171,21 +171,37 @@ Um job agendado no servidor envia o lembrete (RF19) e restaura a conta demo (RF0
 
 **Bibliotecas e versões**
 
+Fixadas no T1 (26/11/2026). Regra: só versão publicada há pelo menos duas semanas, conferida com
+`npm view <pacote> time --json`. A trava está no `pnpm-workspace.yaml` (`minimumReleaseAge: 20160`),
+então o instalador recusa pacote recém-publicado — não depende de quem instala lembrar.
+
 | Camada | Biblioteca | Versão |
 | --- | --- | --- |
-| Runtime | Node | 26.x (confirmado no T0) |
-| Build | Vite | 8.3.x (confirmado no T0) |
-| Linguagem | TypeScript | 5.9.x (confirmado no T0) |
-| Rotas | TanStack Router | 1.170+ (não usar a 2.0 beta) |
-| Estilo | Tailwind CSS | 4.3.x |
-| Componentes | shadcn/ui sobre Radix | a confirmar no T1 |
-| Animação | Motion; `@rive-app/react-canvas` (RF22) | a confirmar no T1 |
-| Dados locais | Dexie | 4.4.x (4.4.7 no T0); usar `liveQuery` |
-| API | Hono | 4.13.x (4.13.22 no T0; não usar a v5 pré) |
-| Auth | Better Auth | 1.6.x |
-| Banco | Postgres + Drizzle ORM | Postgres 18 (T0); Drizzle a confirmar no T1 |
-| PWA | plugin de PWA do Vite + Web Push | a confirmar no T1 |
-| Testes | Vitest e Playwright | Playwright 1.65.x (T0); Vitest a confirmar no T1 |
+| Runtime | Node | 26.x (`.nvmrc` e `engines`) |
+| Gerenciador | pnpm | 12.6.0 (`packageManager`) |
+| Build | Vite | 8.3.8 |
+| Linguagem | TypeScript | 5.9.3 |
+| React | `react`, `react-dom` | 19.3.1 (tipos 19.3.0) |
+| Plugin React do Vite | `@vitejs/plugin-react` | 6.3.0 |
+| Rotas | TanStack Router | 1.170.46 (plugin Vite 1.169.0; não usar a 2.0 beta) |
+| Estilo | Tailwind CSS | 4.3.5 (`@tailwindcss/vite` 4.3.5) |
+| Lint e formato | Biome | 2.6.7 (uma ferramenta só, sem ESLint nem Prettier) |
+| Componentes | shadcn/ui (CLI `shadcn` 4.23.0) sobre `radix-ui` 1.8.1 | confirmadas; instaladas no T7a |
+| Animação | Motion 14.12.0; `@rive-app/react-canvas` 4.39.0 (RF22) | confirmadas; instaladas no T19 e T21 |
+| Dados locais | Dexie | 4.4.7; usar `liveQuery` |
+| API | Hono | 4.13.18 (`@hono/node-server` 2.1.7; não usar a v5 pré) |
+| Auth | Better Auth | **a spec dizia 1.6.x; a série publicada é 1.7.x (1.7.21). Decidir antes do T4** |
+| Banco | Postgres 18; Drizzle | `drizzle-orm` 0.45.4 e `drizzle-kit` 0.31.11 confirmadas; instaladas no T4 |
+| PWA | `vite-plugin-pwa` 2.0.0; `web-push` 4.0.0 | confirmadas; instaladas no T15 e T17 |
+| Testes | Vitest 5.1.0; Playwright 1.65.0 | instaladas no T1 |
+
+O `prototype/` ficou congelado com as versões do T0 (Hono 4.13.22, `@hono/node-server` 2.1.11,
+Playwright 1.65.1, `@types/node` 26.6.10) e está fora do workspace, do lint e da CI. Duas delas
+foram publicadas no mesmo dia em que o T0 rodou, o que a trava de idade agora impede.
+
+**Hospedagem:** comparada em `docs/decisoes/hospedagem.md`. Recomendação do T1: Fly.io servindo a
+interface pelo próprio processo da API (mesma origem para `/api` sem proxy) e Postgres no Neon
+Free. Aguardando a aprovação do Ricardo antes de criar conta ou fazer deploy.
 
 ## 6. Decisões técnicas e alternativas descartadas
 

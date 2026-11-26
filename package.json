@@ -1,0 +1,28 @@
+{
+  "name": "pulse",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=26 <27",
+    "pnpm": ">=12"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter \"./apps/*\" dev",
+    "build": "pnpm --filter \"./packages/*\" build && pnpm --filter \"./apps/*\" build",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "pnpm build:core && pnpm -r typecheck",
+    "test:unit": "pnpm build:core && pnpm -r --filter \"!@pulse/e2e\" test",
+    "test:e2e": "pnpm build && pnpm --filter @pulse/e2e test",
+    "test": "pnpm test:unit && pnpm test:e2e",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down -v",
+    "build:core": "pnpm --filter @pulse/core build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.7",
+    "@types/node": "26.6.6",
+    "typescript": "5.9.3"
+  }
+}

@@ -54,4 +54,24 @@ Se o código e a spec discordarem, pare e avise. A spec é corrigida primeiro, n
 
 ## Comandos
 
-Definidos no T1. Atualize esta seção quando existirem (instalar, dev, testes, lint, E2E, migrações).
+Todos na raiz do repositório. Node 26 e pnpm 12; o `prototype/` tem workspace próprio e não
+responde a nenhum destes.
+
+| Comando | O que faz |
+| --- | --- |
+| `pnpm install` | instala o workspace |
+| `pnpm dev` | API em :8787 e web em :5173, com `/api` no proxy do Vite |
+| `pnpm build` | compila `packages/core`, depois `apps/api` e `apps/web` |
+| `pnpm lint` | Biome: lint e formatação (`pnpm lint:fix` corrige) |
+| `pnpm typecheck` | `tsc --noEmit` em todos os pacotes |
+| `pnpm test:unit` | Vitest em `packages/core` e `apps/api` |
+| `pnpm test:e2e` | Playwright; faz o build antes |
+| `pnpm test` | unit + E2E |
+| `pnpm db:up` / `pnpm db:down` | Postgres 18 de desenvolvimento, na porta 5434 |
+
+Na primeira vez: `pnpm --filter @pulse/e2e exec playwright install chromium`.
+
+Migrações do banco: definidas no T4.
+
+`packages/core` publica `dist/`, então precisa estar compilado antes de qualquer coisa que o
+importe — `typecheck`, `test:unit` e `test:e2e` já fazem isso sozinhos.
